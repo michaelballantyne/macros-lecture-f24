@@ -1,0 +1,16 @@
+- `for-first.rkt`
+    - exercise: implement find-times
+- `xpath-example.rkt`
+- `c-macros.c`
+-  `for-list-N.rkt`
+- `for-first-impl.rkt`
+    - exercise: implement for/first to recursive function
+- `or.rkt`
+- `more-recursive.rkt`
+    - exercise: implement `let*`.
+- `stream.rkt`
+- `hygiene.rkt`
+    blackboard w/ arrows
+- `case.rkt`
+- Return to:
+    - `xpath-example.rkt` and `xpath.rkt`
