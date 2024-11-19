@@ -48,8 +48,8 @@
        '(1 2 3))
 
 
-;; A hacky fix
-
+;; A hacky fix:
+#;#;#;
 
 (require "sexp-transformer.rkt")
 (define-syntax for/list
@@ -67,14 +67,18 @@
   (* v v))
 
 
+;; This is what old-school macro systems do, like common lisp.
 
+;; It's not a perfect solution:
 
-
+#;(let ([cons 5])
+  (for/list ([v '(1 2 3)])
+    (* v cons)))
 
 
 
 ;; What if I try the same thing in syntax-rules?
-#;
+
 (define-syntax for/list  
   (syntax-rules ()
     [(_ ([el e]) body)
@@ -82,3 +86,6 @@
               (cons body v))
             '() e)]))
 
+(let ([cons 5])
+  (for/list ([v '(1 2 3)])
+    (* v cons)))
