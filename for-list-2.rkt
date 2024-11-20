@@ -35,8 +35,8 @@
 
 ;; The matching part looks a little better, but the construction
 ;; part is still hard to read...
-#;#;#;#;#;
 
+#;(
 (define var 'x)
 (define body '(+ x 1))
 (define rhs ''(1 2 3))
@@ -45,7 +45,7 @@
 (list 'map (list 'lambda (list var) body) rhs)
 
 ;; Can also be written...
-`(map (lambda (,var) ,body) ,rhs)
+`(map (lambda (,var) ,body) ,rhs))
 
 
 
@@ -63,7 +63,7 @@
 
 ;; Putting it all together into the macro
 
-#;#;#;
+
 (require "sexp-transformer.rkt")
 
 (define-syntax for/list
@@ -75,4 +75,6 @@
 
 (for/list ([x '(1 2 3)])
   (+ x 1))
+
+
 

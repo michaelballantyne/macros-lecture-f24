@@ -20,9 +20,11 @@
 (select example-xexpr
         'html
         'body
+        1
         (deep 'a)
         (where (has-attribute 'href "https://google.com"))
         0)
+
 ;; =>
 #;'("click me!" "click me too!")
 
@@ -40,7 +42,7 @@
 ;;            | (has-attribute <expr> [<expr>])
 
 
-;; Just as with for/first, we can get much of the way with procedural
+;; We can get much of the way with procedural
 ;; abstraction, but not all the way there. Macros close the gap.
 
 #;
@@ -51,7 +53,7 @@
         (where (has-attribute 'href "https://google.com"))
         0)
 ;; Expands to...
-#;
+
 (select/f example-xexpr
           (find-child (has-tag 'html))
           (find-child (has-tag 'body))

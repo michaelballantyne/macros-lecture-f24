@@ -3,16 +3,22 @@
 ;; What if we wanted to support multiple lists?
 
 #;(for/list ([x '(1 2 3)]
-             [y '(4 5 6)])
+           [y '(4 5 6)])
     (+ x y))
 ;; => '(5 7 9)
 
+#;(map (lambda (x y) (+ x y))
+     '(1 2 3)
+     '(4 5 6))
+
+
+
 #;(define-syntax for/list
-    (sexp-transformer
-     (lambda (stx)
-       (match stx
-         [`(for/list ([,var ,rhs] ...) ,body)
-          `(map (lambda (,var ...) ,body) ,rhs ...)]))))
+  (sexp-transformer
+   (lambda (stx)
+     (match stx
+       [`(for/list ([,var ,rhs] ...) ,body)
+        `(map (lambda (,var ...) ,body) ,rhs ...)]))))
 
 
 ;; We need a matching and templating language better specialized to
@@ -21,7 +27,7 @@
 
 ;; Luckily, Racket has one.
 
-#;#;
+
 (define-syntax for/list
   (syntax-rules ()
     [(for/list ([var rhs] ...) body)
@@ -30,6 +36,8 @@
 (for/list ([x '(1 2 3)]
            [y '(4 5 6)])
   (+ x y))
+
+(map (lambda (x y) (+ x y)) '(1 2 3) '(4 5 6))
 
 
 ;; We could also define for/list by translation to a recursive
@@ -50,6 +58,7 @@
                          (cons body-res (loop (rest x) (rest y))))))])
     (loop '(1 2 3) '(4 5 6)))
 
+#;
 (define-syntax for/list
   (syntax-rules ()
     [(for/list ([var rhs] ...)
@@ -63,6 +72,7 @@
                             (cons body-res (loop (rest var) ...)))))])
        (loop rhs ...))]))
 
+#;
 (for/list ([x '(1 2 3)]
            [y '(4 5 6)])
   (+ x y))
